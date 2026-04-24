@@ -40,4 +40,4 @@ RUN echo "Listen \${PORT}" > /etc/apache2/ports.conf
 
 EXPOSE ${PORT}
 
-CMD php artisan migrate --force && apache2-foreground
+CMD php artisan migrate:fresh --seed --force && apache2-foreground
