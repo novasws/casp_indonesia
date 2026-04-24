@@ -15,7 +15,7 @@ services:
       - key: APP_DEBUG
         value: true
       - key: APP_KEY
-        generateValue: true
+        value: "base64:AJKkD1xlid6CkRe/uBehzNJsDq+PBlJSYjIC2CjaYIo="
       - key: LOG_CHANNEL
         value: stderr
       - key: DB_CONNECTION
