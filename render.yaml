@@ -24,3 +24,5 @@ services:
         fromDatabase:
           name: casp-indonesia-db
           property: connectionString
+      - key: SESSION_DRIVER
+        value: cookie
