@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     curl \
-    && docker-php-ext-install pdo pdo_pgsql pgsql zip mbstring \
+    && docker-php-ext-install pdo pdo_pgsql pgsql zip \
     && a2enmod rewrite
 
 # Install Composer
