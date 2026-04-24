@@ -26,3 +26,5 @@ services:
           property: connectionString
       - key: SESSION_DRIVER
         value: cookie
+      - key: QUEUE_CONNECTION
+        value: sync
