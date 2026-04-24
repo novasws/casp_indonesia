@@ -6,6 +6,18 @@ use App\Http\Controllers\LandingController;
 use App\Http\Controllers\OnboardingController;
 use App\Http\Controllers\PembayaranController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\File;
+
+/*
+|--------------------------------------------------------------------------
+| Storage File Route (Bypass Symlink Issues on Render)
+|--------------------------------------------------------------------------
+*/
+Route::get('storage/{path}', function ($path) {
+    $absolutePath = storage_path('app/public/' . $path);
+    if (!File::exists($absolutePath)) abort(404);
+    return response()->file($absolutePath);
+})->where('path', '.*');
 
 /*
 |--------------------------------------------------------------------------

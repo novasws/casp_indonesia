@@ -140,7 +140,7 @@
 
                         <div class="flex flex-col items-center text-center">
                             @if($hasImg)
-                                <img src="{{ $imgUrl }}" alt="{{ $k->nama }}" class="w-24 h-24 rounded-full object-cover mb-4 shadow-md group-hover:scale-110 transition-transform duration-300 border-4 border-slate-50">
+                                <img src="{{ $imgUrl }}" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name={{ urlencode($k->nama) }}&background={{ str_replace('#', '', $k->warna_avatar ?? '1E5EBF') }}&color=fff';" alt="{{ $k->nama }}" class="w-24 h-24 rounded-full object-cover mb-4 shadow-md group-hover:scale-110 transition-transform duration-300 border-4 border-slate-50">
                             @else
                                 <div class="w-24 h-24 rounded-full flex items-center justify-center text-3xl font-bold mb-4 {{ $colorClass }} group-hover:scale-110 transition-transform duration-300 shadow-md border-4 border-slate-50">
                                     {{ $initials }}
