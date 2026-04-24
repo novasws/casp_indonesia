@@ -1,0 +1,8 @@
+
+In ProviderRepository.php line 206:
+                         
+  Class "App\Providers\  
+  EventServiceProvider"  
+   not found             
+                         
+
