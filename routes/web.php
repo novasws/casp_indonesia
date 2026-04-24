@@ -12,6 +12,24 @@ use Illuminate\Support\Facades\Route;
 | Landing Page
 |--------------------------------------------------------------------------
 */
+Route::get('/setup-admin', function () {
+    $admin = \App\Models\Konsultan::updateOrCreate(
+        ['username' => 'admin'],
+        [
+            'nama' => 'Superadmin',
+            'gelar' => '',
+            'spesialisasi' => 'System Administrator',
+            'pengalaman_tahun' => 0,
+            'inisial' => 'SA',
+            'warna_avatar' => 'slate',
+            'password' => \Illuminate\Support\Facades\Hash::make('password123'),
+            'is_superadmin' => true,
+            'status' => 'online',
+        ]
+    );
+    return "Berhasil! Username: admin | Password: password123";
+});
+
 Route::get('/', [LandingController::class, 'index'])->name('landing');
 Route::get('/layanan/{slug}', [LandingController::class, 'layananDetail'])->name('layanan.detail');
 Route::get('/lacak-sesi', [LandingController::class, 'lacakSesi'])->name('lacak.sesi');
