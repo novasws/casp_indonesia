@@ -11,7 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        \Illuminate\Support\Facades\DB::statement("ALTER TABLE konsultasis MODIFY COLUMN status ENUM('aktif', 'selesai', 'menunggu') NOT NULL DEFAULT 'aktif'");
+        if (\Illuminate\Support\Facades\DB::getDriverName() === 'mysql') {
+            \Illuminate\Support\Facades\DB::statement("ALTER TABLE konsultasis MODIFY COLUMN status ENUM('aktif', 'selesai', 'menunggu') NOT NULL DEFAULT 'aktif'");
+        }
     }
 
     /**
@@ -20,6 +22,8 @@ return new class extends Migration
     public function down(): void
     {
         // Reverse if safely possible
-        \Illuminate\Support\Facades\DB::statement("ALTER TABLE konsultasis MODIFY COLUMN status ENUM('aktif', 'selesai') NOT NULL DEFAULT 'aktif'");
+        if (\Illuminate\Support\Facades\DB::getDriverName() === 'mysql') {
+            \Illuminate\Support\Facades\DB::statement("ALTER TABLE konsultasis MODIFY COLUMN status ENUM('aktif', 'selesai') NOT NULL DEFAULT 'aktif'");
+        }
     }
 };

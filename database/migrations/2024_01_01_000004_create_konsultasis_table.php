@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('konsultan_id')->constrained('konsultans')->restrictOnDelete();
             $table->foreignId('pembayaran_id')->nullable()->constrained('pembayarans')->nullOnDelete();
             $table->unsignedTinyInteger('paket'); // 1 | 2 | 3
-            $table->enum('status', ['aktif', 'selesai'])->default('aktif');
+            $table->enum('status', ['aktif', 'selesai', 'menunggu', 'terjadwal'])->default('menunggu');
             $table->timestamp('mulai_at')->nullable();
             $table->timestamps();
         });

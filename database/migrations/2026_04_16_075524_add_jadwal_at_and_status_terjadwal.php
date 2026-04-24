@@ -19,7 +19,9 @@ return new class extends Migration
             $table->dateTime('jadwal_at')->nullable()->after('mulai_at');
         });
 
-        \Illuminate\Support\Facades\DB::statement("ALTER TABLE konsultasis MODIFY COLUMN status ENUM('aktif', 'selesai', 'menunggu', 'terjadwal') NOT NULL DEFAULT 'aktif'");
+        if (\Illuminate\Support\Facades\DB::getDriverName() === 'mysql') {
+            \Illuminate\Support\Facades\DB::statement("ALTER TABLE konsultasis MODIFY COLUMN status ENUM('aktif', 'selesai', 'menunggu', 'terjadwal') NOT NULL DEFAULT 'aktif'");
+        }
     }
 
     /**
@@ -35,6 +37,8 @@ return new class extends Migration
             $table->dropColumn('jadwal_at');
         });
 
-        \Illuminate\Support\Facades\DB::statement("ALTER TABLE konsultasis MODIFY COLUMN status ENUM('aktif', 'selesai', 'menunggu') NOT NULL DEFAULT 'aktif'");
+        if (\Illuminate\Support\Facades\DB::getDriverName() === 'mysql') {
+            \Illuminate\Support\Facades\DB::statement("ALTER TABLE konsultasis MODIFY COLUMN status ENUM('aktif', 'selesai', 'menunggu') NOT NULL DEFAULT 'aktif'");
+        }
     }
 };
