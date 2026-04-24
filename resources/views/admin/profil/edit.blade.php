@@ -21,7 +21,7 @@
             <div class="text-center">
                 @if($user->foto)
                     <div class="w-24 h-24 rounded-full mx-auto mb-4 shadow-md border-4 border-slate-50 overflow-hidden bg-slate-100">
-                        <img src="{{ asset('storage/' . $user->foto) }}" alt="Foto Profil" class="w-full h-full object-cover">
+                        <img src="{{ asset('storage/' . $user->foto) }}" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name={{ urlencode($user->nama) }}&background={{ str_replace('#', '', $user->warna_avatar ?? '1E5EBF') }}&color=fff';" alt="Foto Profil" class="w-full h-full object-cover">
                     </div>
                 @else
                     <div class="w-24 h-24 rounded-full flex items-center justify-center text-3xl font-bold mx-auto mb-4 shadow-md border-4 border-slate-50" style="background-color: {{ $user->warna_avatar ?? '#1E5EBF' }}20; color: {{ $user->warna_avatar ?? '#1E5EBF' }}">

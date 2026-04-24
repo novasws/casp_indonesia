@@ -74,7 +74,7 @@
     </style>
     @stack('styles')
 </head>
-<body class="antialiased flex h-screen overflow-hidden">
+<body class="antialiased flex h-[100dvh] overflow-hidden">
 
     {{-- SIDEBAR --}}
     <!-- Overlay for mobile -->
