@@ -211,7 +211,7 @@
 
         <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
-        <div class="inline-block px-4 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform bg-white rounded-2xl shadow-xl sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full sm:p-6 border border-slate-100">
+        <div class="inline-block px-4 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform bg-white rounded-2xl shadow-xl sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full sm:p-8 border border-slate-100">
             <div>
                 <div class="flex items-center justify-between mb-5">
                     <h3 class="text-lg font-bold leading-6 text-slate-800 font-serif" id="modal-title">Detail Konsultasi</h3>
@@ -221,34 +221,34 @@
                 </div>
                 
                 <div class="space-y-4">
-                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Informasi Klien</h4>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-100">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Informasi Klien</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <div>
-                                <span class="block text-xs text-slate-500">Nama Lengkap</span>
+                                <span class="block text-xs text-slate-500 mb-1">Nama Lengkap</span>
                                 <span class="block text-sm font-semibold text-slate-800" id="detail-nama"></span>
                             </div>
                             <div>
-                                <span class="block text-xs text-slate-500">Nomor HP</span>
+                                <span class="block text-xs text-slate-500 mb-1">Nomor HP</span>
                                 <span class="block text-sm font-semibold text-slate-800" id="detail-hp"></span>
                             </div>
-                            <div class="sm:col-span-2">
-                                <span class="block text-xs text-slate-500">Email</span>
+                            <div>
+                                <span class="block text-xs text-slate-500 mb-1">Email</span>
                                 <span class="block text-sm font-semibold text-slate-800" id="detail-email"></span>
                             </div>
                         </div>
                     </div>
 
-                    <div class="bg-blue-50/50 p-4 rounded-xl border border-blue-100/50">
-                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Rincian Kasus</h4>
-                        <div class="space-y-3">
+                    <div class="bg-blue-50/50 p-5 rounded-xl border border-blue-100/50">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Rincian Kasus</h4>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
                             <div>
-                                <span class="block text-xs text-slate-500">Bidang Hukum Terkait</span>
+                                <span class="block text-xs text-slate-500 mb-1">Bidang Hukum</span>
                                 <span class="inline-flex mt-1 px-3 py-1 rounded-full text-xs font-semibold bg-brand-100 text-brand-700 border border-brand-200" id="detail-bidang"></span>
                             </div>
-                            <div>
-                                <span class="block text-xs text-slate-500">Deskripsi Keluhan / Masalah</span>
-                                <div class="mt-1 bg-white p-3 rounded-lg border border-slate-200 max-h-64 overflow-y-auto">
+                            <div class="sm:col-span-2">
+                                <span class="block text-xs text-slate-500 mb-1">Deskripsi Keluhan / Masalah</span>
+                                <div class="mt-1 bg-white p-4 rounded-lg border border-slate-200 max-h-48 overflow-y-auto">
                                     <p class="text-sm text-slate-700 leading-relaxed whitespace-pre-wrap" id="detail-keluhan"></p>
                                 </div>
                             </div>
