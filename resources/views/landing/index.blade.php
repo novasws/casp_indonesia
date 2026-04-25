@@ -156,8 +156,11 @@
                             </div>
 
                             <h3 class="text-xl font-bold text-slate-900 mb-1">{{ $k->nama }}</h3>
-                            <p class="text-slate-500 font-medium mb-3">{{ $k->bidang_hukum }}</p>
-                            
+                            <p class="text-slate-500 font-medium mb-1">{{ $k->bidang_hukum }}</p>
+                            <p class="text-[11px] text-slate-400 font-medium mb-3 flex items-center justify-center gap-1">
+                                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                Jam Operasional: {{ $k->jadwal_shift ?? '09:00 - 17:00' }} WIB
+                            </p>
                             <div class="w-full h-px bg-slate-100 my-4"></div>
                             
                             <div class="flex items-center justify-between w-full text-sm">
