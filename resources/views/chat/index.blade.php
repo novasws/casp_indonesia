@@ -5,7 +5,7 @@
 @section('content')
 
 @if($konsultasi->status === 'menunggu')
-<div class="flex flex-col h-screen overflow-hidden bg-slate-50 relative">
+<div class="flex flex-col h-[100dvh] overflow-hidden bg-slate-50 relative">
     {{-- Waiting Room UI --}}
     <div class="absolute inset-0 bg-slate-900/90 backdrop-blur-sm flex items-center justify-center p-6 z-50">
         <div class="bg-white rounded-3xl p-8 max-w-md w-full text-center shadow-2xl border border-slate-100 transform transition-all">
@@ -166,7 +166,7 @@
 @endpush
 
 @else
-<div class="flex flex-col h-screen overflow-hidden bg-slate-50">
+<div class="flex flex-col h-[100dvh] overflow-hidden bg-slate-50">
     
     {{-- Navbar Konsultasi Klien --}}
     <div class="bg-brand-900 px-4 py-3 md:px-6 md:py-4 flex items-center justify-between shrink-0 shadow-md relative z-20">
