@@ -25,8 +25,11 @@
                 </div>
                 <div class="bg-slate-50 border border-slate-100 rounded-xl p-4">
                     <div class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Estimasi Waktu Tunggu</div>
-                    <div id="wait-timer" class="text-xl font-bold text-amber-500 font-mono tabular-nums leading-tight mt-1">
+                    <div id="wait-timer" class="text-xl font-bold text-amber-500 font-mono tabular-nums leading-tight mt-1 mb-1">
                         {{ gmdate('H:i:s', $estimasiTungguDetik) }}
+                    </div>
+                    <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest border-t border-slate-200 pt-1 mt-1">
+                        Mulai: <span class="text-brand-600">Jam {{ $estimasiJamMulai }}</span>
                     </div>
                 </div>
             </div>
@@ -38,7 +41,13 @@
                     <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
                     KODE SESI ANDA
                 </div>
-                <div class="text-lg font-bold text-slate-800 font-mono tracking-widest">{{ $konsultasi->token_sesi ?? 'N/A' }}</div>
+                <div class="flex items-center justify-between bg-white border border-amber-100 rounded-lg p-2.5 mt-2 mb-2">
+                    <div class="text-xl font-bold text-slate-800 font-mono tracking-widest" id="token-code-1">{{ $konsultasi->token_sesi ?? 'N/A' }}</div>
+                    <button onclick="copyToClipboard('{{ $konsultasi->token_sesi }}', this)" class="flex items-center gap-1 px-3 py-1.5 bg-brand-50 text-brand-600 hover:bg-brand-100 hover:text-brand-700 transition-colors rounded-md border border-brand-200 text-xs font-bold shadow-sm">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                        Salin
+                    </button>
+                </div>
                 <p class="text-[11px] text-amber-700 leading-tight mt-1">SIMPAN kode ini. Jika Anda menutup browser, Anda dapat menggunakan kode ini untuk masuk kembali ke ruang antrean Anda melalui menu "Lacak Sesi" di halaman utama.</p>
             </div>
             
@@ -203,7 +212,13 @@
             {{-- Tampilan ID Sesi untuk kemudahan klien menyimpan Token --}}
             <div class="bg-amber-50 border border-amber-200 p-4 rounded-2xl shadow-sm text-center">
                 <p class="text-xs text-amber-700 font-medium mb-1">ID SESI KONSULTASI ANDA</p>
-                <div class="text-xl font-bold text-amber-800 font-mono tracking-widest mb-1">{{ $konsultasi->token_sesi }}</div>
+                <div class="flex items-center justify-center gap-3 bg-white border border-amber-100 rounded-lg p-2 max-w-sm mx-auto mt-2 mb-2">
+                    <div class="text-xl font-bold text-slate-800 font-mono tracking-widest">{{ $konsultasi->token_sesi }}</div>
+                    <button onclick="copyToClipboard('{{ $konsultasi->token_sesi }}', this)" class="flex items-center gap-1 px-3 py-1.5 bg-brand-50 text-brand-600 hover:bg-brand-100 hover:text-brand-700 transition-colors rounded-md border border-brand-200 text-xs font-bold shadow-sm">
+                        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" /></svg>
+                        Salin
+                    </button>
+                </div>
                 <p class="text-[11px] text-amber-600 leading-relaxed max-w-lg mx-auto">
                     Simpan kode unik ini! Anda akan membutuhkannya untuk mengunduh riwayat/transkrip obrolan ini di kemudian hari melalui menu <strong>Lacak Sesi</strong> pada halaman utama.
                 </p>
@@ -419,6 +434,20 @@
         const div = document.createElement('div');
         div.appendChild(document.createTextNode(str));
         return div.innerHTML;
+    }
+
+    function copyToClipboard(text, btnElement) {
+        navigator.clipboard.writeText(text).then(() => {
+            const originalHTML = btnElement.innerHTML;
+            btnElement.innerHTML = `<svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg> Tersalin!`;
+            btnElement.classList.add('bg-emerald-50', 'text-emerald-600', 'border-emerald-200');
+            btnElement.classList.remove('bg-brand-50', 'text-brand-600', 'border-brand-200');
+            setTimeout(() => {
+                btnElement.innerHTML = originalHTML;
+                btnElement.classList.remove('bg-emerald-50', 'text-emerald-600', 'border-emerald-200');
+                btnElement.classList.add('bg-brand-50', 'text-brand-600', 'border-brand-200');
+            }, 2000);
+        });
     }
 </script>
 @endpush
