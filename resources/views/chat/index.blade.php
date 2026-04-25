@@ -441,7 +441,12 @@
         div.appendChild(document.createTextNode(str));
         return div.innerHTML;
     }
+</script>
+@endpush
+@endif
 
+@push('scripts')
+<script>
     function copyToClipboard(text, btnElement) {
         navigator.clipboard.writeText(text).then(() => {
             const originalHTML = btnElement.innerHTML;
@@ -457,5 +462,4 @@
     }
 </script>
 @endpush
-@endif
 @endsection
