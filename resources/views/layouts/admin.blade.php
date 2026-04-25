@@ -49,7 +49,11 @@
     </script>
 
     <style>
-        body { background-color: #F1F5F9; color: #0F172A; overflow-x: hidden; }
+        html, body { 
+            max-width: 100vw; 
+            overflow-x: hidden !important; 
+        }
+        body { background-color: #F1F5F9; color: #0F172A; }
         
         /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -74,7 +78,7 @@
     </style>
     @stack('styles')
 </head>
-<body class="antialiased flex h-[100dvh] overflow-hidden">
+<body class="antialiased flex h-[100dvh] overflow-hidden w-full max-w-[100vw]">
 
     {{-- SIDEBAR --}}
     <!-- Overlay for mobile -->
@@ -136,7 +140,7 @@
     </aside>
 
     {{-- MAIN CONTENT --}}
-    <main class="flex-1 min-w-0 flex flex-col relative overflow-hidden">
+    <main class="flex-1 min-w-0 flex flex-col relative overflow-hidden w-full max-w-full">
         {{-- TOPBAR --}}
         <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-10">
             <div class="flex items-center">
