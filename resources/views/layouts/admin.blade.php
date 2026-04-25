@@ -182,11 +182,11 @@
         </header>
 
         {{-- CONTENT --}}
-        <div class="flex-1 overflow-y-auto p-4 md:p-8 relative w-full">
+        <div class="flex-1 overflow-y-auto overflow-x-hidden p-4 md:p-8 relative w-full">
             {{-- Background decorative --}}
             <div class="absolute top-0 right-0 w-96 h-96 bg-brand-50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 z-0 pointer-events-none"></div>
             
-            <div class="relative z-10">
+            <div class="relative z-10 w-full">
                 @yield('content')
             </div>
         </div>
