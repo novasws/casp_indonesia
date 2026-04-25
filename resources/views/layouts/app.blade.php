@@ -491,7 +491,7 @@
         });
     </script>
 
-    @if(!request()->is('admin*'))
+    @if(request()->routeIs('landing'))
     <button onclick="openCSModal()" class="fixed bottom-6 right-6 z-50 w-16 h-16 bg-brand-600 rounded-full shadow-[0_0_20px_rgba(37,99,235,0.5)] flex items-center justify-center text-white hover:bg-brand-700 hover:scale-110 transition-transform group border-2 border-white">
         <svg class="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"></path></svg>
         <span class="absolute right-full mr-4 bg-slate-900 text-white text-xs font-bold px-3 py-1.5 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none shadow-lg">Hubungi Bantuan CS</span>
