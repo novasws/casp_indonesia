@@ -78,7 +78,7 @@ class ChatController extends Controller
         }
 
         $estimasiJamMulai = 'Menunggu';
-        if ($konsultasi->konsultan->status_online === 'offline') {
+        if ($konsultasi->konsultan->status === 'offline') {
             if ($konsultasi->konsultan->jadwal_shift) {
                 $parts = explode('-', $konsultasi->konsultan->jadwal_shift);
                 $startShift = trim($parts[0] ?? '');
