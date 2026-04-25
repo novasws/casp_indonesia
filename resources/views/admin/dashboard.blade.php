@@ -18,26 +18,26 @@
                 <h1 class="text-3xl font-serif mb-2">Selamat datang kembali, Admin!</h1>
                 <p class="text-brand-200">Berikut adalah rekapitulasi data platform konsultasi hukum CASP Indonesia hari ini.</p>
             </div>
-            <div class="mt-6 md:mt-0 flex flex-col items-end">
-                <form method="GET" action="{{ route('admin.dashboard') }}" class="flex text-slate-800 items-center justify-end gap-2 mb-3 relative z-20">
-                    <select name="month" class="rounded-lg border-none text-sm font-medium py-1.5 px-3 bg-white/90 hover:bg-white focus:ring-2 focus:ring-gold-500 transition-colors shadow-sm cursor-pointer">
+            <div class="mt-6 md:mt-0 flex flex-col items-center md:items-end text-center md:text-right w-full md:w-auto">
+                <form method="GET" action="{{ route('admin.dashboard') }}" class="flex flex-wrap text-slate-800 items-center justify-center md:justify-end gap-2 mb-3 relative z-20 w-full">
+                    <select name="month" class="rounded-lg border-none text-sm font-medium py-1.5 px-3 bg-white/90 hover:bg-white focus:ring-2 focus:ring-gold-500 transition-colors shadow-sm cursor-pointer flex-1 md:flex-none">
                         @foreach(range(1, 12) as $m)
                             <option value="{{ sprintf('%02d', $m) }}" {{ $month == sprintf('%02d', $m) ? 'selected' : '' }}>
                                 {{ \Carbon\Carbon::create()->month($m)->translatedFormat('F') }}
                             </option>
                         @endforeach
                     </select>
-                    <select name="year" class="rounded-lg border-none text-sm font-medium py-1.5 px-3 bg-white/90 hover:bg-white focus:ring-2 focus:ring-gold-500 transition-colors shadow-sm cursor-pointer">
+                    <select name="year" class="rounded-lg border-none text-sm font-medium py-1.5 px-3 bg-white/90 hover:bg-white focus:ring-2 focus:ring-gold-500 transition-colors shadow-sm cursor-pointer flex-1 md:flex-none">
                         @foreach(range(date('Y') - 2, date('Y')) as $y)
                             <option value="{{ $y }}" {{ $year == $y ? 'selected' : '' }}>{{ $y }}</option>
                         @endforeach
                     </select>
-                    <button type="submit" class="bg-gold-500 hover:bg-gold-400 text-brand-900 px-4 py-1.5 rounded-lg text-sm font-bold transition-colors shadow-sm">
+                    <button type="submit" class="bg-gold-500 hover:bg-gold-400 text-brand-900 px-4 py-1.5 rounded-lg text-sm font-bold transition-colors shadow-sm w-full md:w-auto mt-2 md:mt-0">
                         Filter
                     </button>
                 </form>
-                <p class="text-sm text-brand-300 font-medium">{{ \Carbon\Carbon::now()->translatedFormat('l, d F Y') }}</p>
-                <p class="text-3xl font-bold text-gold-400 text-right">{{ \Carbon\Carbon::now()->format('H:i') }}</p>
+                <p class="text-sm text-brand-300 font-medium md:text-right">{{ \Carbon\Carbon::now()->translatedFormat('l, d F Y') }}</p>
+                <p class="text-3xl font-bold text-gold-400 text-center md:text-right">{{ \Carbon\Carbon::now()->format('H:i') }}</p>
             </div>
         </div>
     </div>
