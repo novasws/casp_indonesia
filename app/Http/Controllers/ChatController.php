@@ -78,7 +78,7 @@ class ChatController extends Controller
         }
 
         $estimasiJamMulai = 'Menunggu';
-        if ($konsultasi->konsultan->jadwal_shift) {
+        if ($konsultasi->konsultan->status_online === 'offline' && $konsultasi->konsultan->jadwal_shift) {
             $parts = explode('-', $konsultasi->konsultan->jadwal_shift);
             $startShift = trim($parts[0] ?? '');
             if (preg_match('/^(\d{1,2}):(\d{2})$/', $startShift, $m)) {
@@ -89,6 +89,10 @@ class ChatController extends Controller
                 $finalM = floor(($finalTimeSec % 3600) / 60);
                 $estimasiJamMulai = sprintf('%02d:%02d', $finalH, $finalM) . ' WIB';
             }
+        } else {
+            // Konsultan Online: waktu sekarang + estimasi tunggu
+            $finalTimeSec = now()->timestamp + $estimasiTungguDetik;
+            $estimasiJamMulai = date('H:i', $finalTimeSec) . ' WIB';
         }
 
         return view('chat.index', compact('konsultasi', 'pesan', 'sisaDetik', 'durasi', 'antreanKe', 'estimasiTungguDetik', 'jadwalDetik', 'estimasiJamMulai'));
