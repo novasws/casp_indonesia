@@ -441,10 +441,31 @@ class AdminController extends Controller
         if ($konsultan->is_superadmin) {
             return redirect()->back()->with('error', 'Tidak dapat menghapus akun Superadmin utama.');
         }
-        
-        $konsultan->delete();
 
-        return redirect()->back()->with('success', 'Data konsultan berhasil dihapus.');
+        try {
+            // Hapus semua data terkait terlebih dahulu (hindari foreign key constraint)
+            // 1. Hapus semua pesan dari konsultasi konsultan ini
+            $konsultasiIds = \App\Models\Konsultasi::where('konsultan_id', $id)->pluck('id');
+            \App\Models\Pesan::whereIn('konsultasi_id', $konsultasiIds)->delete();
+
+            // 2. Hapus semua pembayaran terkait
+            \App\Models\Pembayaran::where('konsultan_id', $id)->delete();
+
+            // 3. Hapus semua konsultasi terkait
+            \App\Models\Konsultasi::where('konsultan_id', $id)->delete();
+
+            // 4. Hapus foto profil dari storage jika ada
+            if ($konsultan->foto && \Storage::disk('public')->exists($konsultan->foto)) {
+                \Storage::disk('public')->delete($konsultan->foto);
+            }
+
+            // 5. Hapus konsultan
+            $konsultan->delete();
+
+            return redirect()->back()->with('success', 'Data konsultan dan seluruh riwayat terkait berhasil dihapus.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Gagal menghapus: ' . $e->getMessage());
+        }
     }
 
     public function chat($id)
