@@ -252,7 +252,7 @@
             {{-- Header gradient bar --}}
             <div class="h-2 bg-gradient-to-r from-brand-700 via-brand-500 to-gold-500"></div>
 
-            <div class="p-8 md:p-10 max-h-[90vh] overflow-y-auto custom-scrollbar">
+            <div class="p-8 md:p-12 max-h-[90vh] overflow-y-auto custom-scrollbar">
                 <button class="absolute top-6 right-6 w-9 h-9 bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900 rounded-full flex items-center justify-center transition-colors focus:outline-none z-10" onclick="closeModal()">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
@@ -260,11 +260,11 @@
                 <div class="flex flex-col md:flex-row gap-8 lg:gap-12">
 
                     {{-- LEFT: Foto + Stats --}}
-                    <div class="flex flex-col items-center md:items-start md:w-64 shrink-0">
-                        <div id="modalAbjad" class="w-32 h-32 rounded-2xl flex items-center justify-center text-4xl font-bold shadow-lg border-4 border-slate-50 overflow-hidden bg-cover bg-center mb-6"></div>
+                    <div class="flex flex-col items-center md:items-start md:w-72 shrink-0">
+                        <div id="modalAbjad" class="w-40 h-40 rounded-2xl flex items-center justify-center text-5xl font-bold shadow-lg border-4 border-slate-50 overflow-hidden bg-cover bg-center mb-6"></div>
 
-                        <h3 id="modalNama" class="text-3xl font-serif text-brand-900 mb-2 text-center md:text-left leading-tight"></h3>
-                        <p id="modalBidang" class="text-brand-500 font-semibold text-base mb-6 text-center md:text-left"></p>
+                        <h3 id="modalNama" class="text-3xl md:text-4xl font-serif text-brand-900 mb-2 text-center md:text-left leading-tight"></h3>
+                        <p id="modalBidang" class="text-brand-500 font-semibold text-base md:text-lg mb-6 text-center md:text-left"></p>
 
                         <div class="flex flex-row md:flex-col gap-3 w-full">
                             <div class="flex-1 bg-slate-50 p-4 rounded-xl border border-slate-100 text-center">
@@ -287,7 +287,7 @@
                     {{-- RIGHT: Bio + Quote + CTA --}}
                     <div class="flex-1 flex flex-col min-w-0">
                         <h4 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Tentang Konsultan</h4>
-                        <div id="modalBio" class="text-slate-600 text-base leading-relaxed mb-8 flex-1 pr-2"></div>
+                        <div id="modalBio" class="text-slate-600 text-base md:text-lg leading-relaxed mb-8 flex-1 pr-2"></div>
 
                         <div class="bg-brand-50 border-l-4 border-brand-400 rounded-r-xl px-5 py-4 mb-7">
                             <p class="text-[10px] font-bold text-brand-400 uppercase tracking-widest mb-2">Kutipan Profesional</p>
