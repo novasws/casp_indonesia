@@ -205,66 +205,85 @@
 </div>
 
 <!-- Modal Detail -->
-<div id="detailModal" class="fixed inset-0 z-50 hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-    <div class="flex items-end justify-center min-h-[100vh] px-4 pt-4 pb-20 text-center sm:block sm:p-0">
-        <div class="fixed inset-0 transition-opacity bg-slate-900/50 backdrop-blur-sm" aria-hidden="true" onclick="closeDetailModal()"></div>
+<div id="detailModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="fixed inset-0 transition-opacity bg-slate-900/60 backdrop-blur-sm" aria-hidden="true" onclick="closeDetailModal()"></div>
 
-        <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+    <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-5xl border border-slate-100 overflow-hidden transform transition-all">
+        {{-- Top accent bar --}}
+        <div class="h-1.5 bg-gradient-to-r from-brand-700 via-brand-500 to-gold-500"></div>
 
-        <div class="inline-block px-4 pt-5 pb-4 overflow-hidden text-left align-bottom transition-all transform bg-white rounded-2xl shadow-xl sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full sm:p-8 border border-slate-100">
+        {{-- Header --}}
+        <div class="flex items-center justify-between px-8 py-5 border-b border-slate-100 bg-slate-50/50">
             <div>
-                <div class="flex items-center justify-between mb-5">
-                    <h3 class="text-lg font-bold leading-6 text-slate-800 font-serif" id="modal-title">Detail Konsultasi</h3>
-                    <button type="button" onclick="closeDetailModal()" class="text-slate-400 hover:text-slate-600 focus:outline-none">
-                        <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
-                    </button>
-                </div>
-                
-                <div class="space-y-4">
-                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-100">
-                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Informasi Klien</h4>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <div>
-                                <span class="block text-xs text-slate-500 mb-1">Nama Lengkap</span>
-                                <span class="block text-sm font-semibold text-slate-800" id="detail-nama"></span>
-                            </div>
-                            <div>
-                                <span class="block text-xs text-slate-500 mb-1">Nomor HP</span>
-                                <span class="block text-sm font-semibold text-slate-800" id="detail-hp"></span>
-                            </div>
-                            <div>
-                                <span class="block text-xs text-slate-500 mb-1">Email</span>
-                                <span class="block text-sm font-semibold text-slate-800" id="detail-email"></span>
-                            </div>
-                        </div>
-                    </div>
+                <h3 class="text-xl font-bold text-slate-800 font-serif" id="modal-title">Detail Konsultasi</h3>
+                <p class="text-xs text-slate-400 mt-0.5">Informasi lengkap sesi konsultasi klien</p>
+            </div>
+            <button type="button" onclick="closeDetailModal()" class="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-700 flex items-center justify-center transition-colors focus:outline-none">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+        </div>
 
-                    <div class="bg-blue-50/50 p-5 rounded-xl border border-blue-100/50">
-                        <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Rincian Kasus</h4>
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <div>
-                                <span class="block text-xs text-slate-500 mb-1">Bidang Hukum</span>
-                                <span class="inline-flex mt-1 px-3 py-1 rounded-full text-xs font-semibold bg-brand-100 text-brand-700 border border-brand-200" id="detail-bidang"></span>
-                            </div>
-                            <div class="sm:col-span-2">
-                                <span class="block text-xs text-slate-500 mb-1">Deskripsi Keluhan / Masalah</span>
-                                <div class="mt-1 bg-white p-4 rounded-lg border border-slate-200 max-h-48 overflow-y-auto">
-                                    <p class="text-sm text-slate-700 leading-relaxed whitespace-pre-wrap" id="detail-keluhan"></p>
-                                </div>
-                            </div>
+        {{-- Body: 2-column on desktop --}}
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-0 divide-y md:divide-y-0 md:divide-x divide-slate-100">
+
+            {{-- LEFT: Informasi Klien --}}
+            <div class="p-8">
+                <div class="flex items-center gap-2 mb-6">
+                    <div class="w-8 h-8 rounded-lg bg-brand-50 flex items-center justify-center">
+                        <svg class="w-4 h-4 text-brand-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+                    </div>
+                    <h4 class="text-sm font-bold text-slate-600 uppercase tracking-wider">Informasi Klien</h4>
+                </div>
+
+                <div class="space-y-5">
+                    <div>
+                        <span class="block text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Nama Lengkap</span>
+                        <span class="block text-base font-bold text-slate-800" id="detail-nama"></span>
+                    </div>
+                    <div>
+                        <span class="block text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Nomor HP</span>
+                        <span class="block text-base font-bold text-slate-800" id="detail-hp"></span>
+                    </div>
+                    <div>
+                        <span class="block text-xs font-medium text-slate-400 uppercase tracking-wider mb-1">Email</span>
+                        <span class="block text-base font-bold text-slate-800" id="detail-email"></span>
+                    </div>
+                </div>
+            </div>
+
+            {{-- RIGHT: Rincian Kasus --}}
+            <div class="p-8">
+                <div class="flex items-center gap-2 mb-6">
+                    <div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center">
+                        <svg class="w-4 h-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+                    </div>
+                    <h4 class="text-sm font-bold text-slate-600 uppercase tracking-wider">Rincian Kasus</h4>
+                </div>
+
+                <div class="space-y-5">
+                    <div>
+                        <span class="block text-xs font-medium text-slate-400 uppercase tracking-wider mb-2">Bidang Hukum Terkait</span>
+                        <span class="inline-flex px-4 py-1.5 rounded-full text-sm font-semibold bg-brand-100 text-brand-700 border border-brand-200" id="detail-bidang"></span>
+                    </div>
+                    <div>
+                        <span class="block text-xs font-medium text-slate-400 uppercase tracking-wider mb-2">Deskripsi Keluhan / Masalah</span>
+                        <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 max-h-52 overflow-y-auto">
+                            <p class="text-sm text-slate-700 leading-relaxed whitespace-pre-wrap" id="detail-keluhan"></p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="mt-6 flex flex-col sm:flex-row gap-3">
-                <button type="button" onclick="closeDetailModal()" class="w-full sm:w-1/3 inline-flex justify-center px-4 py-3 text-sm font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 border border-transparent rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-200 transition-colors">
-                    Tutup
-                </button>
-                <a id="btn-masuk-chat" href="#" class="w-full sm:w-2/3 inline-flex justify-center items-center gap-2 px-4 py-3 text-sm font-bold text-white bg-brand-600 hover:bg-brand-700 border border-transparent rounded-lg shadow-md hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-600 transition-all">
-                    Masuk ke Chat
-                    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                </a>
-            </div>
+        </div>
+
+        {{-- Footer --}}
+        <div class="px-8 py-5 border-t border-slate-100 bg-slate-50/50 flex flex-col sm:flex-row gap-3 justify-end">
+            <button type="button" onclick="closeDetailModal()" class="px-6 py-2.5 text-sm font-bold text-slate-600 bg-white hover:bg-slate-100 border border-slate-200 rounded-xl transition-colors">
+                Tutup
+            </button>
+            <a id="btn-masuk-chat" href="#" class="inline-flex justify-center items-center gap-2 px-8 py-2.5 text-sm font-bold text-white bg-brand-600 hover:bg-brand-700 rounded-xl shadow-md hover:shadow-lg transition-all">
+                Masuk ke Chat
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </a>
         </div>
     </div>
 </div>
