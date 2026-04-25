@@ -402,6 +402,7 @@ class AdminController extends Controller
             'gelar' => 'nullable|string|max:60',
             'spesialisasi' => 'required|string|max:80',
             'pengalaman_tahun' => 'required|integer|min:0',
+            'jadwal_shift' => 'nullable|string|max:100',
             'username' => 'required|string|max:60|unique:konsultans,username,' . $konsultan->id,
             'password' => 'nullable|string|min:6',
         ]);
@@ -414,6 +415,7 @@ class AdminController extends Controller
             'gelar' => $request->gelar,
             'spesialisasi' => $request->spesialisasi,
             'pengalaman_tahun' => $request->pengalaman_tahun,
+            'jadwal_shift' => $request->jadwal_shift,
             'inisial' => $inisial,
             'username' => $request->username,
         ];
@@ -715,6 +717,7 @@ class AdminController extends Controller
             'gelar'            => 'nullable|string|max:60',
             'spesialisasi'     => 'required|string|max:80',
             'pengalaman_tahun' => 'required|integer|min:0|max:50',
+            'jadwal_shift'     => 'nullable|string|max:100',
             'bio'              => 'nullable|string|max:3000',
             'quote'            => 'nullable|string|max:1000',
             'username'         => 'required|string|max:60|unique:konsultans,username,' . $user->id,
@@ -727,6 +730,7 @@ class AdminController extends Controller
             'gelar'            => $request->gelar,
             'spesialisasi'     => $request->spesialisasi,
             'pengalaman_tahun' => $request->pengalaman_tahun,
+            'jadwal_shift'     => $request->jadwal_shift,
             'bio'              => $request->bio,
             'quote'            => $request->quote,
             'username'         => $request->username,

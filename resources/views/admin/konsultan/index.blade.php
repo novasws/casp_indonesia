@@ -61,7 +61,7 @@
                 </div>
 
                 <div class="mt-4 pt-4 border-t border-slate-100 grid grid-cols-2 gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <button onclick="openEditModal({{ $item->id }}, '{{ addslashes($item->nama) }}', '{{ addslashes($item->gelar) }}', '{{ addslashes($item->spesialisasi) }}', {{ $item->pengalaman_tahun }}, '{{ addslashes($item->username) }}')" class="py-1.5 text-xs font-semibold text-brand-600 bg-brand-50 hover:bg-brand-100 rounded-md transition-colors">Edit Profil</button>
+                    <button onclick="openEditModal({{ $item->id }}, '{{ addslashes($item->nama) }}', '{{ addslashes($item->gelar) }}', '{{ addslashes($item->spesialisasi) }}', {{ $item->pengalaman_tahun }}, '{{ addslashes($item->username) }}', '{{ addslashes($item->jadwal_shift ?? '') }}')" class="py-1.5 text-xs font-semibold text-brand-600 bg-brand-50 hover:bg-brand-100 rounded-md transition-colors">Edit Profil</button>
                     <form action="{{ route('admin.konsultan.destroy', $item->id) }}" method="POST" class="inline" onsubmit="return confirm('Apakah Anda yakin ingin menghapus konsultan ini? Data yang terhapus tidak dapat dikembalikan.');">
                         @csrf
                         @method('DELETE')
@@ -199,6 +199,10 @@
                         <label class="block text-sm font-semibold text-slate-700 mb-1">Pengalaman (Tahun) *</label>
                         <input type="number" min="0" id="edit_pengalaman" name="pengalaman_tahun" required class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 outline-none">
                     </div>
+                    <div class="col-span-2">
+                        <label class="block text-sm font-semibold text-slate-700 mb-1">Jam Operasional / Shift (WIB)</label>
+                        <input type="text" id="edit_jadwal_shift" name="jadwal_shift" class="w-full px-4 py-2 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 outline-none" placeholder="Contoh: 09:00 - 17:00">
+                    </div>
                 </div>
 
                 <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 mb-6">
@@ -239,12 +243,13 @@
 
 @push('scripts')
 <script>
-    function openEditModal(id, nama, gelar, spesialisasi, pengalaman, username) {
+    function openEditModal(id, nama, gelar, spesialisasi, pengalaman, username, jadwal_shift) {
         document.getElementById('edit_nama').value = nama;
         document.getElementById('edit_gelar').value = gelar;
         document.getElementById('edit_spesialisasi').value = spesialisasi;
         document.getElementById('edit_pengalaman').value = pengalaman;
         document.getElementById('edit_username').value = username;
+        document.getElementById('edit_jadwal_shift').value = jadwal_shift || '';
         
         let form = document.getElementById('formEditKonsultan');
         form.action = '/admin/konsultan/' + id;

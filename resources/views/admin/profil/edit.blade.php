@@ -136,6 +136,10 @@
                         <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Pengalaman (Tahun)</label>
                         <input type="number" name="pengalaman_tahun" value="{{ old('pengalaman_tahun', $user->pengalaman_tahun) }}" min="0" max="50" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 outline-none transition-all">
                     </div>
+                    <div class="md:col-span-2">
+                        <label class="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-1.5">Jam Operasional / Shift (WIB)</label>
+                        <input type="text" name="jadwal_shift" value="{{ old('jadwal_shift', $user->jadwal_shift) }}" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg text-sm focus:ring-2 focus:ring-brand-500 outline-none transition-all" placeholder="Contoh: 09:00 - 17:00">
+                    </div>
                 </div>
             </div>
 
