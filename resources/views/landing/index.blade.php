@@ -107,7 +107,7 @@
                 <p class="text-slate-600 text-lg max-w-2xl mx-auto">Semua konsultan kami telah tersertifikasi resmi dan berpengalaman menangani berbagai kompleksitas kasus di bidangnya.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-8">
                 @foreach($konsultan as $index => $k)
                     @php
                         $colors = ['bg-blue-50 text-blue-700', 'bg-emerald-50 text-emerald-700', 'bg-amber-50 text-amber-700', 'bg-purple-50 text-purple-700', 'bg-rose-50 text-rose-700'];
@@ -126,7 +126,7 @@
                             $hasImg = $hasLocalImg;
                         }
                     @endphp
-                    <div class="group relative bg-white rounded-2xl p-8 border border-slate-200 cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:border-brand-300 hover:shadow-[0_20px_40px_-15px_rgba(37,99,235,0.15)] fade-on-scroll konsultan-card"
+                    <div class="group relative bg-white rounded-2xl p-4 sm:p-8 border border-slate-200 cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:border-brand-300 hover:shadow-[0_20px_40px_-15px_rgba(37,99,235,0.15)] fade-on-scroll konsultan-card"
                          data-nama="{{ $k->nama }}"
                          data-inisial="{{ $initials }}"
                          data-img="{{ $imgUrl }}"
@@ -140,24 +140,24 @@
 
                         <div class="flex flex-col items-center text-center">
                             @if($hasImg)
-                                <img src="{{ $imgUrl }}" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name={{ urlencode($k->nama) }}&background={{ str_replace('#', '', $k->warna_avatar ?? '1E5EBF') }}&color=fff';" alt="{{ $k->nama }}" class="w-24 h-24 rounded-full object-cover mb-4 shadow-md group-hover:scale-110 transition-transform duration-300 border-4 border-slate-50">
+                                <img src="{{ $imgUrl }}" onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name={{ urlencode($k->nama) }}&background={{ str_replace('#', '', $k->warna_avatar ?? '1E5EBF') }}&color=fff';" alt="{{ $k->nama }}" class="w-16 h-16 md:w-24 md:h-24 rounded-full object-cover mb-3 md:mb-4 shadow-md group-hover:scale-110 transition-transform duration-300 border-2 md:border-4 border-slate-50">
                             @else
-                                <div class="w-24 h-24 rounded-full flex items-center justify-center text-3xl font-bold mb-4 {{ $colorClass }} group-hover:scale-110 transition-transform duration-300 shadow-md border-4 border-slate-50">
+                                <div class="w-16 h-16 md:w-24 md:h-24 rounded-full flex items-center justify-center text-xl md:text-3xl font-bold mb-3 md:mb-4 {{ $colorClass }} group-hover:scale-110 transition-transform duration-300 shadow-md border-2 md:border-4 border-slate-50">
                                     {{ $initials }}
                                 </div>
                             @endif
                             
-                            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full mb-4 {{ $k->status == 'online' ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-amber-50 text-amber-600 border border-amber-100' }} text-xs font-semibold">
-                                <span class="relative flex h-2 w-2">
+                            <div class="inline-flex items-center gap-1.5 px-2 md:px-3 py-0.5 md:py-1 rounded-full mb-3 {{ $k->status == 'online' ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-amber-50 text-amber-600 border border-amber-100' }} text-[10px] md:text-xs font-semibold">
+                                <span class="relative flex h-1.5 w-1.5 md:h-2 md:w-2">
                                   <span class="{{ $k->status == 'online' ? 'animate-ping' : '' }} absolute inline-flex h-full w-full rounded-full {{ $k->status == 'online' ? 'bg-emerald-400 opacity-75' : 'bg-amber-400 opacity-50' }}"></span>
-                                  <span class="relative inline-flex rounded-full h-2 w-2 {{ $k->status == 'online' ? 'bg-emerald-500' : 'bg-amber-500' }}"></span>
+                                  <span class="relative inline-flex rounded-full h-1.5 w-1.5 md:h-2 md:w-2 {{ $k->status == 'online' ? 'bg-emerald-500' : 'bg-amber-500' }}"></span>
                                 </span>
-                                {{ $k->status == 'online' ? 'Tersedia' : ($k->status == 'sibuk' ? 'Sedang Praktik' : 'Offline') }}
+                                {{ $k->status == 'online' ? 'Tersedia' : ($k->status == 'sibuk' ? 'Sibuk' : 'Offline') }}
                             </div>
 
-                            <h3 class="text-xl font-bold text-slate-900 mb-1">{{ $k->nama }}</h3>
-                            <p class="text-slate-500 font-medium mb-1">{{ $k->bidang_hukum }}</p>
-                            <p class="text-[11px] text-slate-400 font-medium mb-3 flex items-center justify-center gap-1">
+                            <h3 class="text-sm md:text-xl font-bold text-slate-900 mb-1 leading-tight">{{ $k->nama }}</h3>
+                            <p class="text-xs md:text-sm text-slate-500 font-medium mb-1">{{ $k->bidang_hukum }}</p>
+                            <p class="text-[10px] md:text-[11px] text-slate-400 font-medium mb-2 md:mb-3 flex items-center justify-center gap-1">
                                 <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                                 Jam Operasional: {{ $k->jadwal_shift ?? '09:00 - 17:00' }} WIB
                             </p>

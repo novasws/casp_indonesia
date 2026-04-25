@@ -741,6 +741,11 @@ class AdminController extends Controller
                 \Storage::disk('public')->delete($user->foto);
             }
             $data['foto'] = $request->file('foto')->store('profil', 'public');
+        } elseif ($request->has('hapus_foto')) {
+            if ($user->foto && \Storage::disk('public')->exists($user->foto)) {
+                \Storage::disk('public')->delete($user->foto);
+            }
+            $data['foto'] = null;
         }
 
         $user->update($data);
