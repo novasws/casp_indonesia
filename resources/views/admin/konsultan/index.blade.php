@@ -16,7 +16,7 @@
         </button>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 p-6 bg-slate-50/30">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 p-4 sm:p-6 bg-slate-50/30">
         @forelse($konsultan as $item)
             @php
                 $words = array_values(array_filter(array_map('trim', explode(' ', str_replace(['Dr.', 'S.H.', 'M.H.', 'M.Kn', ','], '', $item->nama)))));

@@ -136,7 +136,7 @@
     </aside>
 
     {{-- MAIN CONTENT --}}
-    <main class="flex-1 flex flex-col relative overflow-hidden">
+    <main class="flex-1 min-w-0 flex flex-col relative overflow-hidden">
         {{-- TOPBAR --}}
         <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-10">
             <div class="flex items-center">
@@ -178,7 +178,7 @@
         </header>
 
         {{-- CONTENT --}}
-        <div class="flex-1 overflow-y-auto p-6 md:p-8 relative">
+        <div class="flex-1 overflow-y-auto p-4 md:p-8 relative w-full">
             {{-- Background decorative --}}
             <div class="absolute top-0 right-0 w-96 h-96 bg-brand-50 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 z-0 pointer-events-none"></div>
             
