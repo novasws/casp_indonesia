@@ -99,15 +99,15 @@
     </section>
 
     {{-- ===== KONSULTAN (DAFTAR PEMBIMBING) ===== --}}
-    <section class="py-24 bg-white" id="konsultan-section">
+    <section class="py-16 md:py-24 bg-white" id="konsultan-section">
         <div class="container mx-auto px-6 max-w-6xl">
-            <div class="text-center mb-16 fade-on-scroll">
+            <div class="text-center mb-12 md:mb-16 fade-on-scroll">
                 <span class="text-brand-500 font-bold uppercase tracking-wider text-sm">Daftar Pembimbing</span>
                 <h2 class="text-4xl md:text-5xl font-serif text-brand-900 mt-3 mb-4">Pakar Hukum Terbaik</h2>
                 <p class="text-slate-600 text-lg max-w-2xl mx-auto">Semua konsultan kami telah tersertifikasi resmi dan berpengalaman menangani berbagai kompleksitas kasus di bidangnya.</p>
             </div>
 
-            <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-8">
                 @foreach($konsultan as $index => $k)
                     @php
                         $colors = ['bg-blue-50 text-blue-700', 'bg-emerald-50 text-emerald-700', 'bg-amber-50 text-amber-700', 'bg-purple-50 text-purple-700', 'bg-rose-50 text-rose-700'];
@@ -126,7 +126,7 @@
                             $hasImg = $hasLocalImg;
                         }
                     @endphp
-                    <div class="group relative bg-white rounded-2xl p-4 sm:p-8 border border-slate-200 cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:border-brand-300 hover:shadow-[0_20px_40px_-15px_rgba(37,99,235,0.15)] fade-on-scroll konsultan-card"
+                    <div class="group relative bg-white rounded-2xl p-5 sm:p-8 border border-slate-200 cursor-pointer transition-all duration-300 hover:-translate-y-2 hover:border-brand-300 hover:shadow-[0_20px_40px_-15px_rgba(37,99,235,0.15)] fade-on-scroll konsultan-card"
                          data-nama="{{ $k->nama }}"
                          data-inisial="{{ $initials }}"
                          data-img="{{ $imgUrl }}"
@@ -147,7 +147,7 @@
                                 </div>
                             @endif
                             
-                            <div class="inline-flex items-center gap-1.5 px-2 md:px-3 py-0.5 md:py-1 rounded-full mb-3 {{ $k->status == 'online' ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-amber-50 text-amber-600 border border-amber-100' }} text-[10px] md:text-xs font-semibold">
+                            <div class="inline-flex items-center gap-1.5 px-2 md:px-3 py-0.5 md:py-1 rounded-full mb-3 {{ $k->status == 'online' ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-amber-50 text-amber-600 border border-amber-100' }} text-xs sm:text-sm font-semibold">
                                 <span class="relative flex h-1.5 w-1.5 md:h-2 md:w-2">
                                   <span class="{{ $k->status == 'online' ? 'animate-ping' : '' }} absolute inline-flex h-full w-full rounded-full {{ $k->status == 'online' ? 'bg-emerald-400 opacity-75' : 'bg-amber-400 opacity-50' }}"></span>
                                   <span class="relative inline-flex rounded-full h-1.5 w-1.5 md:h-2 md:w-2 {{ $k->status == 'online' ? 'bg-emerald-500' : 'bg-amber-500' }}"></span>
@@ -155,9 +155,9 @@
                                 {{ $k->status == 'online' ? 'Tersedia' : ($k->status == 'sibuk' ? 'Sibuk' : 'Offline') }}
                             </div>
 
-                            <h3 class="text-sm md:text-xl font-bold text-slate-900 mb-1 leading-tight">{{ $k->nama }}</h3>
-                            <p class="text-xs md:text-sm text-slate-500 font-medium mb-1">{{ $k->bidang_hukum }}</p>
-                            <p class="text-[10px] md:text-[11px] text-slate-400 font-medium mb-2 md:mb-3 flex items-center justify-center gap-1">
+                            <h3 class="text-lg md:text-xl font-bold text-slate-900 mb-1 leading-tight">{{ $k->nama }}</h3>
+                            <p class="text-sm text-slate-500 font-medium mb-1">{{ $k->bidang_hukum }}</p>
+                            <p class="text-xs text-slate-400 font-medium mb-2 md:mb-3 flex items-center justify-center gap-1">
                                 <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
                                 Jam Operasional: {{ $k->jadwal_shift ?? '09:00 - 17:00' }} WIB
                             </p>
@@ -178,9 +178,9 @@
     </section>
 
     {{-- ===== LAYANAN ===== --}}
-    <section class="py-24 bg-slate-50 border-t border-slate-200" id="layanan-section">
+    <section class="py-16 md:py-24 bg-slate-50 border-t border-slate-200" id="layanan-section">
         <div class="container mx-auto px-6 max-w-6xl">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 fade-on-scroll">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 md:mb-16 fade-on-scroll">
                 <div class="max-w-2xl">
                     <span class="text-brand-500 font-bold uppercase tracking-wider text-sm">Ruang Lingkup</span>
                     <h2 class="text-4xl md:text-5xl font-serif text-brand-900 mt-3 mb-4">Pilih Bidang Layanan</h2>
@@ -206,31 +206,36 @@
     </section>
 
     {{-- ===== CARA KERJA TIMELINE ===== --}}
-    <section class="py-24 bg-brand-900 text-white relative overflow-hidden">
+    <section class="py-16 md:py-24 bg-brand-900 text-white relative overflow-hidden">
         {{-- Background Element --}}
         <div class="absolute right-0 top-0 w-1/3 h-full bg-brand-800 skew-x-12 opacity-50 translate-x-1/4"></div>
         
         <div class="container mx-auto px-6 max-w-5xl relative z-10">
-            <div class="text-center mb-16 fade-on-scroll">
+            <div class="text-center mb-12 md:mb-16 fade-on-scroll">
                 <span class="text-brand-300 font-bold uppercase tracking-wider text-sm">Sistem Kami</span>
                 <h2 class="text-4xl md:text-5xl font-serif text-white mt-3 mb-4">Alur Konsultasi Praktis</h2>
                 <p class="text-brand-200 text-lg max-w-2xl mx-auto">Kami mendesain sistem yang sangat efisien. Dapatkan solusi dari ahlinya hanya dalam genggaman Anda.</p>
             </div>
 
             <div class="relative">
-                {{-- Connector Line --}}
+                {{-- Connector Line Desktop --}}
                 <div class="hidden lg:block absolute top-[45px] left-0 right-0 h-0.5 bg-gradient-to-r from-brand-700 via-brand-500 to-brand-700"></div>
                 
+                {{-- Connector Line Mobile --}}
+                <div class="block lg:hidden absolute top-0 bottom-0 left-[48px] w-0.5 bg-gradient-to-b from-brand-700 via-brand-500 to-brand-700"></div>
+
                 <div class="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-4 relative">
                     @foreach($cara_kerja as $index => $step)
-                    <div class="flex flex-col items-center text-center fade-on-scroll delay-{{ ($index+1)*100 }} relative z-10">
-                        <div class="w-24 h-24 rounded-full bg-brand-900 border-[6px] border-brand-800 flex items-center justify-center mb-6 shadow-[0_0_20px_rgba(0,0,0,0.5)] group-hover:border-brand-500 transition-colors">
+                    <div class="flex flex-row lg:flex-col items-center lg:text-center fade-on-scroll delay-{{ ($index+1)*100 }} relative z-10 gap-5 lg:gap-0">
+                        <div class="w-24 h-24 shrink-0 rounded-full bg-brand-900 border-[6px] border-brand-800 flex items-center justify-center lg:mb-6 shadow-[0_0_20px_rgba(0,0,0,0.5)] group-hover:border-brand-500 transition-colors">
                             <div class="w-16 h-16 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-white font-bold text-2xl">
                                 {{ $step['num'] }}
                             </div>
                         </div>
-                        <h4 class="text-lg font-bold text-white mb-2">{{ $step['judul'] }}</h4>
-                        <p class="text-sm text-brand-200 px-2">{{ $step['desc'] }}</p>
+                        <div class="text-left lg:text-center">
+                            <h4 class="text-lg font-bold text-white mb-1 lg:mb-2">{{ $step['judul'] }}</h4>
+                            <p class="text-sm text-brand-200 lg:px-2">{{ $step['desc'] }}</p>
+                        </div>
                     </div>
                     @endforeach
                 </div>
@@ -246,40 +251,40 @@
 
 
     {{-- MODAL BIODATA PROFESIONAL --}}
-    <div class="modal-overlay fixed inset-0 z-[100] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center px-4 py-6" id="biodataModal" onclick="closeModal(event)">
+    <div class="modal-overlay fixed inset-0 z-[100] hidden opacity-0 transition-opacity duration-300 flex items-center justify-center px-4 py-4 md:py-6" id="biodataModal" onclick="closeModal(event)">
         <div class="bg-white w-full max-w-4xl rounded-3xl shadow-2xl transform scale-95 transition-transform duration-300 relative overflow-hidden" onclick="event.stopPropagation()">
 
             {{-- Header gradient bar --}}
             <div class="h-2 bg-gradient-to-r from-brand-700 via-brand-500 to-gold-500"></div>
 
-            <div class="p-8 md:p-10 max-h-[90vh] overflow-y-auto custom-scrollbar">
-                <button class="absolute top-6 right-6 w-9 h-9 bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900 rounded-full flex items-center justify-center transition-colors focus:outline-none z-10" onclick="closeModal()">
+            <div class="p-5 md:p-10 max-h-[90vh] overflow-y-auto custom-scrollbar">
+                <button class="absolute top-4 right-4 md:top-6 md:right-6 w-9 h-9 bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-900 rounded-full flex items-center justify-center transition-colors focus:outline-none z-10" onclick="closeModal()">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
 
-                <div class="flex flex-col md:flex-row gap-8 lg:gap-12">
+                <div class="flex flex-col md:flex-row gap-6 lg:gap-12 mt-2 md:mt-0">
 
                     {{-- LEFT: Foto + Stats --}}
                     <div class="flex flex-col items-center md:items-start md:w-64 shrink-0">
-                        <div id="modalAbjad" class="w-32 h-32 rounded-2xl flex items-center justify-center text-4xl font-bold shadow-lg border-4 border-slate-50 overflow-hidden bg-cover bg-center mb-6"></div>
+                        <div id="modalAbjad" class="w-24 h-24 md:w-32 md:h-32 rounded-2xl flex items-center justify-center text-4xl font-bold shadow-lg border-4 border-slate-50 overflow-hidden bg-cover bg-center mb-4 md:mb-6"></div>
 
-                        <h3 id="modalNama" class="text-3xl font-serif text-brand-900 mb-2 text-center md:text-left leading-tight"></h3>
-                        <p id="modalBidang" class="text-brand-500 font-semibold text-base mb-6 text-center md:text-left"></p>
+                        <h3 id="modalNama" class="text-2xl md:text-3xl font-serif text-brand-900 mb-1 md:mb-2 text-center md:text-left leading-tight"></h3>
+                        <p id="modalBidang" class="text-brand-500 font-semibold text-sm md:text-base mb-5 md:mb-6 text-center md:text-left"></p>
 
-                        <div class="flex flex-row md:flex-col gap-3 w-full">
-                            <div class="flex-1 bg-slate-50 p-4 rounded-xl border border-slate-100 text-center">
-                                <div id="modalExp" class="text-xl font-bold text-slate-800"></div>
-                                <div class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mt-1">Pengalaman</div>
+                        <div class="grid grid-cols-3 md:flex md:flex-col gap-2 md:gap-3 w-full">
+                            <div class="bg-slate-50 p-2 sm:p-4 rounded-xl border border-slate-100 text-center flex flex-col justify-center">
+                                <div id="modalExp" class="text-base sm:text-xl font-bold text-slate-800"></div>
+                                <div class="text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-widest mt-1 leading-tight">Pengalaman</div>
                             </div>
-                            <div class="flex-1 bg-emerald-50 p-4 rounded-xl border border-emerald-100 text-center">
-                                <div id="modalStatus" class="text-xl font-bold"></div>
-                                <div class="text-[10px] font-bold text-emerald-600 uppercase tracking-widest mt-1">Status</div>
+                            <div class="bg-emerald-50 p-2 sm:p-4 rounded-xl border border-emerald-100 text-center flex flex-col justify-center">
+                                <div id="modalStatus" class="text-base sm:text-xl font-bold"></div>
+                                <div class="text-[10px] sm:text-xs font-bold text-emerald-600 uppercase tracking-widest mt-1 leading-tight">Status</div>
                             </div>
-                            <div class="flex-1 bg-amber-50 p-4 rounded-xl border border-amber-100 text-center">
-                                <div class="text-xl font-bold text-amber-600 flex justify-center items-center gap-1">
-                                    5.0 <svg class="w-4 h-4 fill-amber-500" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                            <div class="bg-amber-50 p-2 sm:p-4 rounded-xl border border-amber-100 text-center flex flex-col justify-center">
+                                <div class="text-base sm:text-xl font-bold text-amber-600 flex justify-center items-center gap-1">
+                                    5.0 <svg class="w-3 h-3 sm:w-4 sm:h-4 fill-amber-500" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
                                 </div>
-                                <div class="text-[10px] font-bold text-amber-600 uppercase tracking-widest mt-1">Rating</div>
+                                <div class="text-[10px] sm:text-xs font-bold text-amber-600 uppercase tracking-widest mt-1 leading-tight">Rating</div>
                             </div>
                         </div>
                     </div>
@@ -290,7 +295,7 @@
                         <div id="modalBio" class="text-slate-600 text-base leading-relaxed mb-8 flex-1 pr-2"></div>
 
                         <div class="bg-brand-50 border-l-4 border-brand-400 rounded-r-xl px-5 py-4 mb-7">
-                            <p class="text-[10px] font-bold text-brand-400 uppercase tracking-widest mb-2">Kutipan Profesional</p>
+                            <p class="text-xs font-bold text-brand-400 uppercase tracking-widest mb-2">Kutipan Profesional</p>
                             <p id="modalQuote" class="text-slate-700 leading-relaxed text-sm italic"></p>
                         </div>
 
@@ -356,8 +361,8 @@
         const st = document.getElementById('modalStatus');
         st.innerText  = status;
         st.className  = status === 'Online'
-            ? 'text-xl font-bold mb-1 text-emerald-600'
-            : 'text-xl font-bold mb-1 text-amber-600';
+            ? 'text-base sm:text-xl font-bold text-emerald-600'
+            : 'text-base sm:text-xl font-bold text-amber-600';
 
         // Show modal
         const modal = document.getElementById('biodataModal');
