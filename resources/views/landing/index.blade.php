@@ -51,7 +51,7 @@
                     
                     <h1 class="text-5xl md:text-7xl font-serif leading-tight mb-6">
                         @php
-                            $judul = $hero['judul'] ?? 'Hallo CASP';
+                            $judul = $hero['judul'] ?? 'Halo CASP';
                             $parts = explode(' ', $judul, 2);
                         @endphp
                         {{ $parts[0] ?? '' }} <span class="bg-gradient-to-r from-gold-300 to-gold-500 bg-clip-text text-transparent italic">{{ $parts[1] ?? '' }}</span>
