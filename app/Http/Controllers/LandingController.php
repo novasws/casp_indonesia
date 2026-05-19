@@ -120,7 +120,7 @@ class LandingController extends Controller
         // Hero content from database
         $hero = [
             'badge' => SiteContent::getValue('hero_badge', 'Konsultan hukum bersertifikat · Online 24/7'),
-            'judul' => SiteContent::getValue('hero_judul', 'Hallo CASP'),
+            'judul' => SiteContent::getValue('hero_judul', 'Halo CASP'),
             'deskripsi' => SiteContent::getValue('hero_deskripsi', 'Pusat konsultasi kebijakan ruang angkasa, udara, dan layanan hukum terpadu. Terjamin aman, privat, dan profesional bersama pakar berpengalaman di bidangnya.'),
         ];
 
