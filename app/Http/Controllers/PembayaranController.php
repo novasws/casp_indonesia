@@ -14,7 +14,6 @@ class PembayaranController extends Controller
 
     /**
      * Konfirmasi pembayaran setelah user klik "Konfirmasi Pembayaran".
-     * Di production, ini akan diintegrasikan dengan webhook payment gateway.
      */
     public function konfirmasi(Request $request): JsonResponse
     {
@@ -26,23 +25,54 @@ class PembayaranController extends Controller
 
         $paketHarga = [1 => 50000, 2 => 90000, 3 => 130000];
         $harga      = $paketHarga[$request->paket];
+        $total      = $harga + 5000;
+        $order_id   = 'CASP-' . uniqid();
 
         $pembayaran = Pembayaran::create([
+            'order_id'          => $order_id,
             'nama_klien'        => session('onboarding.nama', 'Klien'),
-            'email_klien'       => session('onboarding.email', ''),
-            'hp_klien'          => session('onboarding.hp', ''),
-            'bidang_hukum'      => session('onboarding.bidang', ''),
-            'deskripsi_keluhan' => session('onboarding.keluhan', ''),
+            'email_klien'       => session('onboarding.email', 'klien@example.com'),
+            'hp_klien'          => session('onboarding.hp', '08123456789'),
+            'bidang_hukum'      => session('onboarding.bidang', '-'),
+            'deskripsi_keluhan' => session('onboarding.keluhan', '-'),
             'konsultan_id'      => $request->konsultan_id,
-            'paket'        => $request->paket,
-            'metode'       => $request->metode,
-            'harga'        => $harga,
-            'biaya_layanan'=> 5000,
-            'total'        => $harga + 5000,
-            'status'       => 'menunggu',
-            'jadwal_at'    => session('onboarding.jadwal_at'),
-            // Kita belum ada kolom 'expires_at' di DB secara default, jadi kita andalkan waktu created_at + 3 menit
+            'paket'             => $request->paket,
+            'metode'            => $request->metode,
+            'harga'             => $harga,
+            'biaya_layanan'     => 5000,
+            'total'             => $total,
+            'status'            => 'menunggu',
+            'jadwal_at'         => session('onboarding.jadwal_at'),
         ]);
+
+        // --- INTEGRASI MIDTRANS ---
+        \Midtrans\Config::$serverKey = config('midtrans.server_key');
+        \Midtrans\Config::$isProduction = config('midtrans.is_production');
+        \Midtrans\Config::$isSanitized = config('midtrans.is_sanitized');
+        \Midtrans\Config::$is3ds = config('midtrans.is_3ds');
+
+        $params = [
+            'transaction_details' => [
+                'order_id' => $order_id,
+                'gross_amount' => $total,
+            ],
+            'customer_details' => [
+                'first_name' => $pembayaran->nama_klien,
+                'email' => $pembayaran->email_klien,
+                'phone' => $pembayaran->hp_klien,
+            ],
+        ];
+
+        try {
+            $snapToken = \Midtrans\Snap::getSnapToken($params);
+            $pembayaran->update(['snap_token' => $snapToken]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], 500);
+        }
+        // --- END INTEGRASI MIDTRANS ---
 
         return response()->json([
             'success'       => true,
@@ -52,19 +82,19 @@ class PembayaranController extends Controller
 
     public function invoice($id)
     {
-        $pembayaran = Pembayaran::findOrFail($id);
+        $pembayaran = Pembayaran::with('konsultan')->findOrFail($id);
         
         if ($pembayaran->status === 'lunas') {
             $konsultasi = \App\Models\Konsultasi::where('pembayaran_id', $pembayaran->id)->first();
-            return redirect()->route('chat.index', $konsultasi->id);
+            return redirect()->route('chat.index', $konsultasi->id ?? 1);
         }
 
         if ($pembayaran->status === 'gagal') {
             return redirect()->route('landing')->with('error', 'Waktu pembayaran telah kadaluarsa.');
         }
 
-        // Kalkulasi sisa waktu (3 menit dari created_at)
-        $expiresAt = $pembayaran->created_at->addMinutes(3);
+        // Kalkulasi sisa waktu (15 menit untuk Midtrans biasanya lebih aman)
+        $expiresAt = $pembayaran->created_at->addMinutes(15);
         $sisaDetik = $expiresAt->diffInSeconds(now(), false) * -1;
         
         if ($sisaDetik <= 0) {
@@ -88,7 +118,7 @@ class PembayaranController extends Controller
         }
 
         $konsultasi = \App\Models\Konsultasi::where('pembayaran_id', $pembayaran->id)->first();
-        return redirect()->route('chat.index', $konsultasi->id);
+        return redirect()->route('chat.index', $konsultasi->id ?? 1);
     }
 
     public function kadaluarsa($id)
@@ -98,20 +128,42 @@ class PembayaranController extends Controller
             $pembayaran->update(['status' => 'gagal']);
         }
 
-        // Return json for ajax
         return response()->json(['success' => true]);
     }
 
     /**
-     * Webhook dari payment gateway (Midtrans, Xendit, dsb.)
+     * Webhook dari Midtrans
      */
     public function webhook(Request $request): JsonResponse
     {
-        // Verifikasi signature dari payment gateway di sini
-        $pembayaran = Pembayaran::where('order_id', $request->order_id)->firstOrFail();
+        \Midtrans\Config::$serverKey = config('midtrans.server_key');
+        \Midtrans\Config::$isProduction = config('midtrans.is_production');
+        $notif = new \Midtrans\Notification();
 
-        if ($request->transaction_status === 'settlement' && $pembayaran->status === 'menunggu') {
+        $transaction = $notif->transaction_status;
+        $type = $notif->payment_type;
+        $order_id = $notif->order_id;
+        $fraud = $notif->fraud_status;
+
+        $pembayaran = Pembayaran::where('order_id', $order_id)->firstOrFail();
+
+        if ($transaction == 'capture') {
+            if ($type == 'credit_card') {
+                if ($fraud == 'challenge') {
+                    $pembayaran->update(['status' => 'menunggu']);
+                } else {
+                    $pembayaran->update(['status' => 'lunas']);
+                }
+            }
+        } elseif ($transaction == 'settlement') {
             $pembayaran->update(['status' => 'lunas']);
+        } elseif ($transaction == 'pending') {
+            $pembayaran->update(['status' => 'menunggu']);
+        } elseif ($transaction == 'deny' || $transaction == 'expire' || $transaction == 'cancel') {
+            $pembayaran->update(['status' => 'gagal']);
+        }
+
+        if ($pembayaran->status === 'lunas') {
             $this->service->buatKonsultasi($pembayaran);
             event(new PembayaranDikonfirmasi($pembayaran));
         }

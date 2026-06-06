@@ -54,12 +54,10 @@
                 Silakan selesaikan pembayaran menggunakan metode <strong class="uppercase text-slate-800">{{ $pembayaran->metode }}</strong> sebelum waktu habis.
             </p>
             
-            <form action="{{ route('pembayaran.sukses', $pembayaran->id) }}" method="POST">
-                @csrf
-                <button type="submit" id="btn-bayar" class="w-full flex justify-center py-3.5 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white bg-gold-500 hover:bg-gold-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gold-500 transition-all active:scale-[0.98]">
-                    SAYA SUDAH BAYAR (SIMULASI)
-                </button>
-            </form>
+            <button id="pay-button" class="w-full flex justify-center py-3.5 px-4 border border-transparent rounded-xl shadow-sm text-sm font-bold text-white bg-gold-500 hover:bg-gold-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gold-500 transition-all active:scale-[0.98]">
+                BAYAR SEKARANG
+            </button>
+            <p class="mt-4 text-[10px] text-center text-slate-400">Powered by Midtrans</p>
             
             <div class="mt-4 text-center">
                 <a href="{{ route('landing') }}" class="text-xs text-rose-500 hover:text-rose-700 font-medium transition-colors">
@@ -70,16 +68,23 @@
     </div>
 </div>
 
+{{-- Hidden form for success redirect --}}
+<form id="success-form" action="{{ route('pembayaran.sukses', $pembayaran->id) }}" method="POST" style="display: none;">
+    @csrf
+</form>
+
 @endsection
 
 @push('scripts')
+<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const d = document;
         let sisaDetik = {{ $sisaDetik }};
         const countdownEl = d.getElementById('countdown');
-        const btnBayar = d.getElementById('btn-bayar');
+        const payButton = d.getElementById('pay-button');
         const invoiceId = '{{ $pembayaran->id }}';
+        const snapToken = '{{ $pembayaran->snap_token }}';
 
         function pad(num) {
             return num.toString().padStart(2, '0');
@@ -89,12 +94,13 @@
             if (sisaDetik <= 0) {
                 countdownEl.innerHTML = "00:00";
                 countdownEl.classList.add('text-rose-500');
-                btnBayar.disabled = true;
-                btnBayar.classList.replace('bg-gold-500', 'bg-slate-300');
-                btnBayar.classList.replace('hover:bg-gold-600', 'hover:bg-slate-300');
-                btnBayar.innerText = 'WAKTU HABIS';
+                if(payButton) {
+                    payButton.disabled = true;
+                    payButton.classList.replace('bg-gold-500', 'bg-slate-300');
+                    payButton.classList.replace('hover:bg-gold-600', 'hover:bg-slate-300');
+                    payButton.innerText = 'WAKTU HABIS';
+                }
                 
-                // Trigger kadaluarsa
                 fetch(`/pembayaran/${invoiceId}/kadaluarsa`, {
                     method: 'POST',
                     headers: {
@@ -115,8 +121,27 @@
             countdownEl.innerHTML = pad(menit) + ':' + pad(detik);
         }
 
+        // Midtrans Snap Logic
+        if(payButton) {
+            payButton.onclick = function () {
+                window.snap.pay(snapToken, {
+                    onSuccess: function (result) {
+                        d.getElementById('success-form').submit();
+                    },
+                    onPending: function (result) {
+                        alert("Menunggu pembayaran Anda!");
+                    },
+                    onError: function (result) {
+                        alert("Pembayaran gagal!");
+                    },
+                    onClose: function () {
+                        alert('Anda menutup pop-up tanpa menyelesaikan pembayaran');
+                    }
+                });
+            };
+        }
+
         updateDisplay();
-        
         const timer = setInterval(() => {
             sisaDetik--;
             updateDisplay();
