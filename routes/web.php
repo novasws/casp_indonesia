@@ -42,6 +42,14 @@ Route::get('/setup-admin', function () {
     return "Berhasil! Username: admin | Password: password123";
 });
 
+Route::get('/clear-cache', function() {
+    Artisan::call('config:clear');
+    Artisan::call('cache:clear');
+    Artisan::call('view:clear');
+    Artisan::call('route:clear');
+    return "Semua cache online sudah dibersihkan! Silakan tes Midtrans lagi.";
+});
+
 Route::get('/', [LandingController::class, 'index'])->name('landing');
 Route::get('/layanan/{slug}', [LandingController::class, 'layananDetail'])->name('layanan.detail');
 Route::get('/lacak-sesi', [LandingController::class, 'lacakSesi'])->name('lacak.sesi');
