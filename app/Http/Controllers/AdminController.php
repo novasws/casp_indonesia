@@ -307,6 +307,10 @@ class AdminController extends Controller
 
         $callback = function() use($pembayarans, $columns) {
             $file = fopen('php://output', 'w');
+            
+            // Tambahkan BOM agar Excel mengenali pemisah kolom (separator) dengan benar (terutama di regional Indonesia)
+            fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
+            
             fputcsv($file, $columns);
 
             foreach ($pembayarans as $item) {
