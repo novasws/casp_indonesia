@@ -566,7 +566,22 @@ class AdminController extends Controller
 
         $konsultasi = $query->firstOrFail();
 
+        // Enforce: Hanya konsultan yang ditunjuk yang bisa mulai sesi
+        if ($konsultasi->konsultan_id !== $user->id) {
+            return redirect()->route('admin.konsultasi.index')->with('error', 'Sesi ini ditugaskan ke konsultan lain.');
+        }
+
         if (in_array($konsultasi->status, ['terjadwal', 'menunggu'])) {
+            // Cek apakah ini giliran klien ini (Antrean ke-1)
+            $firstQueue = Konsultasi::whereIn('status', ['menunggu', 'terjadwal'])
+                ->where('konsultan_id', $konsultasi->konsultan_id)
+                ->orderBy('created_at', 'asc')
+                ->first();
+            
+            if ($firstQueue->id !== $konsultasi->id) {
+                return redirect()->route('admin.konsultasi.index')->with('error', 'Harap selesaikan antrean sebelumnya terlebih dahulu.');
+            }
+
             $konsultasi->update([
                 'status' => 'aktif',
                 'mulai_at' => now(),

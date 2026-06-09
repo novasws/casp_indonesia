@@ -164,13 +164,21 @@
                                 class="inline-block px-4 py-2 bg-slate-50 text-slate-600 hover:bg-slate-100 hover:text-slate-800 text-sm font-semibold rounded-[3px] transition-colors border border-slate-200">Detail</button>
                             
                             @if(in_array($item->status, ['terjadwal', 'menunggu']))
-                                @if(($queuePositions[$item->id] ?? 99) === 1 || auth()->user()->is_superadmin)
+                                @php
+                                    $isFirstInQueue = ($queuePositions[$item->id] ?? 99) === 1;
+                                    $isAssignedToMe = $item->konsultan_id === auth()->id();
+                                    $canStart = $isFirstInQueue && $isAssignedToMe;
+                                @endphp
+
+                                @if($canStart)
                                 <form action="{{ route('admin.konsultasi.mulai', $item->id) }}" method="POST">
                                     @csrf
                                     <button type="submit" class="inline-block px-4 py-2 bg-emerald-50 text-emerald-600 hover:bg-emerald-100 hover:text-emerald-800 text-sm font-semibold rounded-[3px] transition-colors border border-emerald-100">Mulai Sesi &rarr;</button>
                                 </form>
                                 @else
-                                <button type="button" disabled class="inline-block px-4 py-2 bg-slate-50 text-slate-400 text-sm font-semibold rounded-[3px] border border-slate-200 cursor-not-allowed opacity-70" title="Harap selesaikan Antrean ke-1 terlebih dahulu">Belum Giliran</button>
+                                <button type="button" disabled class="inline-block px-4 py-2 bg-slate-50 text-slate-400 text-sm font-semibold rounded-[3px] border border-slate-200 cursor-not-allowed opacity-70" title="{{ !$isAssignedToMe ? 'Sesi ini bukan untuk Anda' : 'Harap selesaikan Antrean ke-1 terlebih dahulu' }}">
+                                    {{ !$isAssignedToMe ? 'Bukan Konsultan Anda' : 'Belum Giliran' }}
+                                </button>
                                 @endif
                             @else
                                 <a href="{{ route('admin.konsultasi.chat', $item->id) }}" class="inline-block px-4 py-2 bg-brand-50 text-brand-600 hover:bg-brand-100 hover:text-brand-800 text-sm font-semibold rounded-[3px] transition-colors border border-brand-100">Buka Chat &rarr;</a>
