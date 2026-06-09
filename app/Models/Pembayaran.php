@@ -26,6 +26,7 @@ class Pembayaran extends Model
         'total',
         'status',        // 'menunggu' | 'lunas' | 'gagal' | 'refund'
         'jadwal_at',
+        'snap_token',
     ];
 
     protected $casts = [

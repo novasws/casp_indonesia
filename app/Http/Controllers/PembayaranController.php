@@ -67,9 +67,13 @@ class PembayaranController extends Controller
             $snapToken = \Midtrans\Snap::getSnapToken($params);
             $pembayaran->update(['snap_token' => $snapToken]);
         } catch (\Exception $e) {
+            \Log::error('Midtrans Error: ' . $e->getMessage(), [
+                'order_id' => $order_id,
+                'params' => $params
+            ]);
             return response()->json([
                 'success' => false,
-                'message' => $e->getMessage()
+                'message' => 'Gagal menghubungi penyedia pembayaran: ' . $e->getMessage()
             ], 500);
         }
         // --- END INTEGRASI MIDTRANS ---
@@ -95,7 +99,7 @@ class PembayaranController extends Controller
 
         // Kalkulasi sisa waktu (15 menit untuk Midtrans biasanya lebih aman)
         $expiresAt = $pembayaran->created_at->addMinutes(15);
-        $sisaDetik = $expiresAt->diffInSeconds(now(), false) * -1;
+        $sisaDetik = (int) ($expiresAt->diffInSeconds(now(), false) * -1);
         
         if ($sisaDetik <= 0) {
             $pembayaran->update(['status' => 'gagal']);

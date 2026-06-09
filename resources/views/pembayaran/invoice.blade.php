@@ -76,7 +76,7 @@
 @endsection
 
 @push('scripts')
-<script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ config('midtrans.client_key') }}"></script>
+<script src="{{ config('midtrans.is_production') ? 'https://app.midtrans.com/snap/snap.js' : 'https://app.sandbox.midtrans.com/snap/snap.js' }}" data-client-key="{{ config('midtrans.client_key') }}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const d = document;
@@ -117,13 +117,17 @@
             }
 
             const menit = Math.floor(sisaDetik / 60);
-            const detik = sisaDetik % 60;
+            const detik = Math.floor(sisaDetik % 60);
             countdownEl.innerHTML = pad(menit) + ':' + pad(detik);
         }
 
         // Midtrans Snap Logic
         if(payButton) {
             payButton.onclick = function () {
+                if (!snapToken) {
+                    alert('Sistem sedang memproses token pembayaran. Silakan refresh halaman.');
+                    return;
+                }
                 window.snap.pay(snapToken, {
                     onSuccess: function (result) {
                         d.getElementById('success-form').submit();
