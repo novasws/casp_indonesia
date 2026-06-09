@@ -308,10 +308,11 @@ class AdminController extends Controller
         $callback = function() use($pembayarans, $columns) {
             $file = fopen('php://output', 'w');
             
-            // Tambahkan BOM agar Excel mengenali pemisah kolom (separator) dengan benar (terutama di regional Indonesia)
+            // Tambahkan BOM dan instruksi SEP agar Excel mengenali pemisah kolom (separator) dengan benar
             fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
+            fprintf($file, "sep=;\n");
             
-            fputcsv($file, $columns);
+            fputcsv($file, $columns, ';');
 
             foreach ($pembayarans as $item) {
                 fputcsv($file, [
@@ -322,7 +323,7 @@ class AdminController extends Controller
                     $item->metode ?? 'Qris/Virtual Acc',
                     $item->total,
                     $item->status
-                ]);
+                ], ';');
             }
 
             fclose($file);
