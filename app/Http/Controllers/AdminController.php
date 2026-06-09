@@ -240,6 +240,7 @@ class AdminController extends Controller
 
     public function pembayaran(Request $request)
     {
+        $user = auth()->user();
         $query = Pembayaran::with('konsultasi');
         
         if ($request->has('status') && $request->status != 'semua') {
@@ -256,6 +257,10 @@ class AdminController extends Controller
             $query->whereYear('created_at', $tahun);
         }
 
+        if (!$user->is_superadmin) {
+            $query->where('konsultan_id', $user->id);
+        }
+
         $pembayaran = $query->latest()->get();
         $currentStatus = $request->input('status', 'semua');
         $currentBulan = $bulan;
@@ -266,8 +271,7 @@ class AdminController extends Controller
 
     public function exportPembayaran(Request $request)
     {
-        if (!auth()->user()->is_superadmin) abort(403);
-        
+        $user = auth()->user();
         $fileName = 'Mutasi_Pembayaran_CASP_' . date('Y-m-d_H-i') . '.csv';
         
         $query = Pembayaran::with('konsultasi');
@@ -283,6 +287,10 @@ class AdminController extends Controller
         }
         if ($tahun != 'semua') {
             $query->whereYear('created_at', $tahun);
+        }
+
+        if (!$user->is_superadmin) {
+            $query->where('konsultan_id', $user->id);
         }
 
         $pembayarans = $query->latest()->get();
