@@ -9,12 +9,13 @@ use App\Models\Pembayaran;
 use App\Models\Pesan;
 use App\Models\SiteContent;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
     public function dashboard(Request $request)
     {
-        $user = auth()->user();
+        $user = Auth::user();
         
         $month = $request->input('month', date('m'));
         $year = $request->input('year', date('Y'));
@@ -240,7 +241,7 @@ class AdminController extends Controller
 
     public function pembayaran(Request $request)
     {
-        $user = auth()->user();
+        $user = Auth::user();
         $query = Pembayaran::with('konsultasi');
         
         if ($request->has('status') && $request->status != 'semua') {
@@ -271,7 +272,7 @@ class AdminController extends Controller
 
     public function exportPembayaran(Request $request)
     {
-        $user = auth()->user();
+        $user = Auth::user();
         $fileName = 'Mutasi_Pembayaran_CASP_' . date('Y-m-d_H-i') . '.csv';
         
         $query = Pembayaran::with('konsultasi');
