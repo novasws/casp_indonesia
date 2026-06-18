@@ -157,7 +157,7 @@
                     <span id="notifText" class="ml-2 text-xs font-bold text-rose-500 hidden bg-rose-50 px-2 py-0.5 rounded-full border border-rose-100"></span>
                 </button>
                 
-                <div class="flex items-center gap-3 border-l border-slate-200 pl-4">
+                <div class="flex items-center gap-2 md:gap-3 md:border-l md:border-slate-200 md:pl-4">
                     @php $user = auth()->user(); @endphp
                     @if($user->foto)
                         <img src="{{ asset('storage/' . $user->foto) }}" alt="Foto Profil" class="w-8 h-8 rounded-full object-cover shadow-sm border border-slate-200">
@@ -170,11 +170,11 @@
                         <div class="font-bold text-slate-800">{{ $user->nama ?? 'Admin' }}</div>
                         <div class="text-xs text-slate-500">{{ $user->is_superadmin ? 'Superadmin' : 'Konsultan' }}</div>
                     </div>
-                    <form method="POST" action="{{ route('logout') }}" class="ml-2 border-l border-slate-200 pl-4">
+                    <form method="POST" action="{{ route('logout') }}" class="md:ml-2 md:border-l md:border-slate-200 md:pl-4">
                         @csrf
-                        <button type="submit" class="text-sm text-slate-500 hover:text-rose-600 font-semibold transition-colors flex items-center">
-                            <svg class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
-                            Logout
+                        <button type="submit" class="text-sm text-slate-500 hover:text-rose-600 font-semibold transition-colors flex items-center p-1.5 md:p-0" title="Logout">
+                            <svg class="w-5 h-5 md:w-4 md:h-4 md:mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" /></svg>
+                            <span class="hidden md:inline">Logout</span>
                         </button>
                     </form>
                 </div>
