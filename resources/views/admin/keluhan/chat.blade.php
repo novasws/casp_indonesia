@@ -18,12 +18,33 @@
         main.flex-1 {
             padding: 0 !important;
         }
+        /* Responsive top info bar on mobile */
+        .top-info-bar {
+            flex-wrap: wrap !important;
+            padding: 12px 16px !important;
+            gap: 8px !important;
+        }
+        .top-info-bar > div:first-child {
+            gap: 8px !important;
+        }
+        .top-info-bar > div:first-child h3 {
+            font-size: 0.875rem !important;
+        }
+        .top-info-bar > div:first-child > div:last-child {
+            display: none;
+        }
+        .top-info-bar > div:last-child {
+            flex-wrap: wrap !important;
+            gap: 4px !important;
+        }
+        .top-info-bar button {
+            padding: 8px 12px !important;
+            font-size: 0.75rem !important;
+        }
     }
-    /* Always hide mobile-back-btn */
     .mobile-back-btn {
         display: none !important;
     }
-    /* Show top-info-bar on all screens */
     .top-info-bar {
         display: flex !important;
     }
