@@ -21,10 +21,16 @@
         .mobile-back-btn {
             display: flex !important;
         }
+        .top-info-bar {
+            display: none !important;
+        }
     }
-    /* Hide by default on desktop */
+    /* Show by default on desktop */
     .mobile-back-btn {
         display: none;
+    }
+    .top-info-bar {
+        display: flex !important;
     }
 </style>
 @endpush
@@ -46,7 +52,7 @@
     </div>
 
     {{-- Top Info Bar --}}
-    <div class="bg-white px-6 py-4 border-b border-slate-200 shadow-sm flex items-center justify-between shrink-0 relative z-10 hidden"> 
+    <div class="top-info-bar bg-white px-6 py-4 border-b border-slate-200 shadow-sm flex items-center justify-between shrink-0 relative z-10"> 
         <div class="flex items-center gap-4">
             <a href="{{ route('admin.konsultasi.index') }}" class="w-10 h-10 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-500 hover:text-brand-600 hover:bg-brand-50 transition-colors">
                 <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
