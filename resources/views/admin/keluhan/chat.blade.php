@@ -45,6 +45,11 @@
     .mobile-back-btn {
         display: none !important;
     }
+    /* Chat message word-break handling */
+    #chat-messages p {
+        word-break: break-word;
+        overflow-wrap: break-word;
+    }
 </style>
 @endpush
 
