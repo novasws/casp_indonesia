@@ -18,17 +18,12 @@
         main.flex-1 {
             padding: 0 !important;
         }
-        .mobile-back-btn {
-            display: flex !important;
-        }
-        .top-info-bar {
-            display: none !important;
-        }
     }
-    /* Show by default on desktop */
+    /* Always hide mobile-back-btn */
     .mobile-back-btn {
-        display: none;
+        display: none !important;
     }
+    /* Show top-info-bar on all screens */
     .top-info-bar {
         display: flex !important;
     }
@@ -40,17 +35,6 @@
 @endphp
 
 <div class="flex flex-col h-[calc(100vh-4rem)] -m-6 md:-m-8 overflow-hidden bg-slate-50 relative z-20">
-    {{-- Mobile Back Button --}}
-    <div class="mobile-back-btn bg-white px-4 py-3 border-b border-slate-200 items-center gap-3 shrink-0 relative z-10">
-        <a href="{{ route('admin.keluhan.index') }}" class="w-10 h-10 rounded-full bg-slate-50 border border-slate-100 flex items-center justify-center text-slate-500 hover:text-brand-600 hover:bg-brand-50 transition-colors">
-            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" /></svg>
-        </a>
-        <div>
-            <h3 class="text-sm font-bold text-slate-800">{{ $keluhan->nama }}</h3>
-            <p class="text-xs text-slate-500">Email: {{ $keluhan->email }}</p>
-        </div>
-    </div>
-
     {{-- Top Info Bar --}}
     <div class="top-info-bar bg-white px-6 py-4 border-b border-slate-200 shadow-sm flex items-center justify-between shrink-0 relative z-10">
         <div class="flex items-center gap-4">
