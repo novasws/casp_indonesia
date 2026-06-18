@@ -4,14 +4,6 @@
 @section('page_title', 'Manajemen Konsultasi')
 
 @section('content')
-<style>
-    #detailModal {
-        z-index: 9999 !important;
-    }
-    #detailModal:not(.hidden) {
-        display: flex !important;
-    }
-</style>
 <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
     <div class="px-6 py-5 border-b border-slate-100 flex flex-col md:flex-row items-center justify-between gap-4 bg-slate-50/50">
         <div>
@@ -221,10 +213,13 @@
 </div>
 
 <!-- Modal Detail -->
-<div id="detailModal" class="fixed inset-0 z-[9999] hidden flex items-center justify-center p-4 pointer-events-none" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-    <div class="fixed inset-0 transition-opacity bg-slate-900/60 backdrop-blur-sm pointer-events-auto" aria-hidden="true" onclick="closeDetailModal()"></div>
-
-    <div class="relative z-[10000] bg-white rounded-2xl shadow-2xl w-full max-w-5xl border border-slate-100 overflow-hidden transform transition-all pointer-events-auto">
+<div id="detailModal" class="fixed inset-0 z-[9999] hidden" style="width: 100vw; height: 100vh;">
+    <!-- Backdrop yang fully cover segalanya -->
+    <div class="absolute inset-0 bg-black/70 backdrop-blur-sm" onclick="closeDetailModal()" style="z-index: 9998;"></div>
+    
+    <!-- Modal content -->
+    <div class="absolute inset-0 flex items-center justify-center p-4" style="z-index: 9999;">
+        <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-5xl border border-slate-100 overflow-hidden transform transition-all" style="z-index: 10000;">
         {{-- Top accent bar --}}
         <div class="h-1.5 bg-gradient-to-r from-brand-700 via-brand-500 to-gold-500"></div>
 
@@ -301,6 +296,8 @@
                 <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
             </a>
         </div>
+        </div>
+        </div>
     </div>
 </div>
 @endsection
@@ -324,29 +321,13 @@
         
         const modal = document.getElementById('detailModal');
         modal.classList.remove('hidden');
-        modal.classList.remove('pointer-events-none');
-        modal.classList.add('pointer-events-auto');
-        document.body.classList.add('overflow-hidden');
-        
-        // Disable sidebar & header interactions
-        const sidebar = document.getElementById('admin-sidebar');
-        const header = document.querySelector('header');
-        if (sidebar) sidebar.style.pointerEvents = 'none';
-        if (header) header.style.pointerEvents = 'none';
+        document.body.style.overflow = 'hidden';
     }
 
     function closeDetailModal() {
         const modal = document.getElementById('detailModal');
         modal.classList.add('hidden');
-        modal.classList.add('pointer-events-none');
-        modal.classList.remove('pointer-events-auto');
-        document.body.classList.remove('overflow-hidden');
-        
-        // Re-enable sidebar & header interactions
-        const sidebar = document.getElementById('admin-sidebar');
-        const header = document.querySelector('header');
-        if (sidebar) sidebar.style.pointerEvents = 'auto';
-        if (header) header.style.pointerEvents = 'auto';
+        document.body.style.overflow = 'auto';
     }
 
     // Toast Notification for Pending Queues
