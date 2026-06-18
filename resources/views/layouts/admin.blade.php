@@ -142,7 +142,7 @@
     {{-- MAIN CONTENT --}}
     <main class="flex-1 min-w-0 flex flex-col relative overflow-hidden w-full max-w-full">
         {{-- TOPBAR --}}
-        <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-10">
+        <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-6 z-10 hidden md:flex">
             <div class="flex items-center">
                 <button id="admin-menu-toggle" class="md:hidden text-slate-500 hover:text-brand-600 focus:outline-none mr-4 z-50">
                     <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
