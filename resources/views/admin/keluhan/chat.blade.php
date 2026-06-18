@@ -5,6 +5,26 @@
 
 @section('content')
 
+@push('styles')
+<style>
+    /* Hide navbar and sidebar only on mobile */
+    @media (max-width: 767px) {
+        #admin-sidebar,
+        header.h-16,
+        .md\:-m-8 {
+            display: none !important;
+        }
+        main.flex-1 {
+            padding: 0 !important;
+        }
+        .flex.flex-col.h-\[calc\(100vh-4rem\)\] {
+            height: 100vh !important;
+            margin: 0 !important;
+        }
+    }
+</style>
+@endpush
+
 @php
     $isAudit = false; // Tidak ada mode audit di keluhan, cs yang menangani ini
 @endphp
