@@ -213,7 +213,7 @@
 </div>
 
 <!-- Modal Detail -->
-<div id="detailModal" class="fixed inset-0 z-50 hidden flex items-center justify-center p-4" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+<div id="detailModal" class="fixed inset-0 z-[9999] hidden flex items-center justify-center p-4" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     <div class="fixed inset-0 transition-opacity bg-slate-900/60 backdrop-blur-sm" aria-hidden="true" onclick="closeDetailModal()"></div>
 
     <div class="relative bg-white rounded-2xl shadow-2xl w-full max-w-5xl border border-slate-100 overflow-hidden transform transition-all">
@@ -316,10 +316,12 @@
         
         const modal = document.getElementById('detailModal');
         modal.classList.remove('hidden');
+        document.body.classList.add('overflow-hidden');
     }
 
     function closeDetailModal() {
         document.getElementById('detailModal').classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
     }
 
     // Toast Notification for Pending Queues
