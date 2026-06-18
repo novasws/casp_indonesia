@@ -73,18 +73,14 @@
                     </span>
                     Berlangsung
                 </div>
-            @else
-                <div class="px-3 py-1.5 bg-slate-100 text-slate-600 rounded-lg text-xs font-bold border border-slate-200">
-                    Selesai
-                </div>
-            @endif
-            @if($keluhan->status != 'selesai')
-            <div class="flex items-center gap-2">
                 <form action="{{ route('admin.keluhan.selesai', $keluhan->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menutup dan menyelesaikan tiket keluhan ini secara permanen?')">
                     @csrf
                     <button type="submit" class="px-4 py-1.5 bg-brand-900 text-white rounded-[3px] text-xs font-bold hover:bg-brand-800 transition-colors shadow-sm">Selesaikan Tiket</button>
                 </form>
-            </div>
+            @else
+                <div class="px-3 py-1.5 bg-slate-100 text-slate-600 rounded-lg text-xs font-bold border border-slate-200">
+                    Selesai
+                </div>
             @endif
         </div>
     </div>
