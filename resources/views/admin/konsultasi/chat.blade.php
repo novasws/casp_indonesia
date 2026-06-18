@@ -18,35 +18,32 @@
         main.flex-1 {
             padding: 0 !important;
         }
-        /* Responsive top info bar on mobile */
+        /* Mobile responsive adjustments */
         .top-info-bar {
-            flex-wrap: wrap !important;
-            padding: 12px 16px !important;
-            gap: 8px !important;
+            padding: 8px 12px !important;
+            gap: 6px !important;
         }
-        .top-info-bar > div:first-child {
-            gap: 8px !important;
+        .top-info-bar a {
+            width: 32px !important;
+            height: 32px !important;
         }
-        .top-info-bar > div:first-child h3 {
+        .top-info-bar a svg {
+            width: 4px !important;
+            height: 4px !important;
+        }
+        .top-info-bar h3 {
             font-size: 0.875rem !important;
         }
         .top-info-bar > div:first-child > div:last-child {
-            display: none;
-        }
-        .top-info-bar > div:last-child {
-            flex-wrap: wrap !important;
-            gap: 4px !important;
+            font-size: 0.65rem !important;
         }
         .top-info-bar button {
-            padding: 8px 12px !important;
-            font-size: 0.75rem !important;
+            padding: 6px 10px !important;
+            font-size: 0.65rem !important;
         }
     }
     .mobile-back-btn {
         display: none !important;
-    }
-    .top-info-bar {
-        display: flex !important;
     }
 </style>
 @endpush
