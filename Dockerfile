@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
     unzip \
     git \
     curl \
-    && docker-php-ext-install pdo pdo_pgsql pgsql zip \
+    && docker-php-ext-install pdo pdo_mysql zip \
     && a2enmod rewrite \
     && a2dissite 000-default
 
