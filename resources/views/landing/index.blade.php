@@ -76,7 +76,7 @@
                 {{-- Gambar / Logo Kanan --}}
                 <div class="hidden lg:flex justify-center relative items-center">
                     <div class="absolute inset-0 bg-brand-400/20 blur-3xl rounded-full scale-110"></div>
-                    <img src="{{ asset('images/logo.png') }}" alt="CASP Indonesia" class="relative z-10 w-[420px] h-[420px] rounded-full object-cover animate-float shadow-2xl border-[6px] border-white/10"/>
+                    <img src="{{ asset('images/logo.png') }}" alt="CASP Indonesia" class="relative z-10 w-[340px] h-[340px] rounded-full object-cover animate-float shadow-2xl border-[6px] border-white/10"/>
                 </div>
             </div>
 
